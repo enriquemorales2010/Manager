@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Entradas - Productos{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1 class="h2 mb-2">
+            <i class="bi bi-box-seam"></i> Entradas de Productos
+        </h1>
+        <p class="text-muted">Registro de productos ingresados al sistema</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'inventario:product_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Nuevo Producto
+        </a>
+        <a href="{% url 'manager:dashboard' %}" class="btn btn-outline-secondary ms-2">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<!-- Resumen de Entradas -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card-indicator">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-box-seam-fill text-primary" style="font-size: 2rem;"></i>
+                </div>
+                <div class="col">
+                    <div class="indicator-value">{{ total_productos }}</div>
+                    <div class="indicator-label">Total de Productos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de Entradas -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history"></i> Últimas Entradas
+                </h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr class="table-light">
+                            <th><i class="bi bi-tag"></i> Nombre</th>
+                            <th><i class="bi bi-file-text"></i> Descripción</th>
+                            <th><i class="bi bi-cash-coin"></i> Precio</th>
+                            <th><i class="bi bi-stack"></i> Cantidad Inicial</th>
+                            <th><i class="bi bi-calendar3"></i> Fecha</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                            <tr>
+                                <td class="fw-bold">{{ producto.nombre }}</td>
+                                <td>
+                                    <span class="text-muted">
+                                        {{ producto.descripcion|truncatewords:5 }}
+                                    </span>
+                                </td>
+                                <td class="text-primary fw-600">
+                                    $ {{ producto.precio|floatformat:2 }}
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark">{{ producto.cantidad }}</span>
+                                </td>
+                                <td class="text-muted small">
+                                    {{ producto.created_at|date:"d/m/Y H:i" }}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{% url 'inventario:product_detail' producto.pk %}" class="btn btn-sm btn-outline-primary" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{% url 'inventario:product_update' producto.pk %}" class="btn btn-sm btn-outline-secondary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center py-4 text-muted">
+                                    <i class="bi bi-inbox"></i> No hay productos registrados aún.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.fw-600 {
+    font-weight: 600;
+}
+</style>
+{% endblock %}

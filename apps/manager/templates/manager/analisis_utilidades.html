@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Análisis de Utilidades{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1 class="h2 mb-2">
+            <i class="bi bi-graph-up-arrow"></i> Análisis de Utilidades
+        </h1>
+        <p class="text-muted">Análisis de ganancias de los últimos 30 días</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'manager:dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>
+
+<!-- Tarjetas Resumen -->
+<div class="row g-4 mb-4">
+    <!-- Total Ganancias -->
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow-sm">
+            <div class="card-body text-center">
+                <div class="card-icon text-success">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <div class="card-value">${{ ganancia_total_30|floatformat:2 }}</div>
+                <div class="card-label">Total 30 Días</div>
+                <div class="card-subtitle">Ganancia acumulada</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promedio Diario -->
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow-sm">
+            <div class="card-body text-center">
+                <div class="card-icon text-info">
+                    <i class="bi bi-calculator"></i>
+                </div>
+                <div class="card-value">${{ promedio_diario|floatformat:2 }}</div>
+                <div class="card-label">Promedio Diario</div>
+                <div class="card-subtitle">Ganancia por día</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Transacciones -->
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow-sm">
+            <div class="card-body text-center">
+                <div class="card-icon text-warning">
+                    <i class="bi bi-receipt"></i>
+                </div>
+                <div class="card-value">{{ total_ventas_30 }}</div>
+                <div class="card-label">Transacciones</div>
+                <div class="card-subtitle">Ventas registradas</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proyección Mensual -->
+    <div class="col-md-3">
+        <div class="card card-dashboard shadow-sm">
+            <div class="card-body text-center">
+                <div class="card-icon text-primary">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="card-value">${{ promedio_diario|floatformat:2|add:"0" }}</div>
+                <div class="card-label">Proyección Mensual</div>
+                <div class="card-subtitle">Estimado 30 días</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de Análisis Diario -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="mb-0">
+                    <i class="bi bi-calendar3"></i> Análisis Diario (Últimos 30 Días)
+                </h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr class="table-light">
+                            <th><i class="bi bi-calendar-event"></i> Fecha</th>
+                            <th class="text-center"><i class="bi bi-receipt"></i> Transacciones</th>
+                            <th class="text-end"><i class="bi bi-cash-coin"></i> Ganancia</th>
+                            <th class="text-center"><i class="bi bi-graph-up"></i> Variación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fecha, datos in ventas_por_dia.items %}
+                            <tr>
+                                <td class="fw-bold">{{ fecha }}</td>
+                                <td class="text-center">
+                                    <span class="badge bg-light text-dark">{{ datos.cantidad }}</span>
+                                </td>
+                                <td class="text-end text-primary fw-600">
+                                    $ {{ datos.ganancia|floatformat:2 }}
+                                </td>
+                                <td class="text-center">
+                                    {% if datos.ganancia > promedio_diario %}
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-arrow-up"></i> +{{ datos.ganancia|add:"-promedio_diario"|floatformat:2 }}
+                                        </span>
+                                    {% elif datos.ganancia < promedio_diario %}
+                                        <span class="badge bg-warning">
+                                            <i class="bi bi-arrow-down"></i> -{{ promedio_diario|add:"-datos.ganancia"|floatformat:2 }}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-dash"></i> Promedio
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">
+                                    <i class="bi bi-graph-up"></i> No hay datos de ventas aún.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información Adicional -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="bi bi-info-circle-fill"></i> <strong>Información:</strong>
+            Este análisis muestra las ganancias de los últimos 30 días. Los datos se actualizan automáticamente con cada venta registrada.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+    </div>
+</div>
+
+<style>
+.fw-600 {
+    font-weight: 600;
+}
+</style>
+{% endblock %}

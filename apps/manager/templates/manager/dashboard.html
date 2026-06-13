@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Reportes{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="dashboard-header">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="h2 mb-2">Panel de Control</h1>
+            <p class="text-muted">Resumen operativo y gestión del negocio</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="{% url 'inventario:product_create' %}" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nuevo Producto
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Tarjetas Principales (4 sectores operativos) -->
+<div class="row g-4 mb-5">
+    <!-- Tarjeta 1: Entradas -->
+    <div class="col-md-6 col-lg-3">
+        <a href="{% url 'manager:entradas' %}" class="card-link">
+            <div class="card card-dashboard shadow-sm">
+                <div class="card-body text-center">
+                    <div class="card-icon text-primary">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div class="card-value">{{ total_productos }}</div>
+                    <div class="card-label">Entradas</div>
+                    <div class="card-subtitle">Productos en inventario</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Tarjeta 2: Ventas/Salidas -->
+    <div class="col-md-6 col-lg-3">
+        <a href="{% url 'manager:resumen_ventas' %}" class="card-link">
+            <div class="card card-dashboard shadow-sm">
+                <div class="card-body text-center">
+                    <div class="card-icon text-success">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="card-value">{{ total_ventas_hoy }}</div>
+                    <div class="card-label">Ventas Hoy</div>
+                    <div class="card-subtitle">Transacciones registradas</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Tarjeta 3: Inventario -->
+    <div class="col-md-6 col-lg-3">
+        <a href="{% url 'inventario:product_list' %}" class="card-link">
+            <div class="card card-dashboard shadow-sm">
+                <div class="card-body text-center">
+                    <div class="card-icon text-warning">
+                        <i class="bi bi-boxes"></i>
+                    </div>
+                    <div class="card-value">{{ inventario_total }}</div>
+                    <div class="card-label">Stock Total</div>
+                    <div class="card-subtitle">Unidades disponibles</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Tarjeta 4: Análisis de Utilidades -->
+    <div class="col-md-6 col-lg-3">
+        <a href="{% url 'manager:analisis_utilidades' %}" class="card-link">
+            <div class="card card-dashboard shadow-sm">
+                <div class="card-body text-center">
+                    <div class="card-icon text-info">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <div class="card-value">${{ ganancia_hoy|floatformat:2 }}</div>
+                    <div class="card-label">Utilidad Hoy</div>
+                    <div class="card-subtitle">Ganancias del día</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Indicadores Auxiliares -->
+<div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-3">
+        <div class="card-indicator">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-exclamation-circle-fill text-warning" style="font-size: 2rem;"></i>
+                </div>
+                <div class="col">
+                    <div class="indicator-value">{{ productos_bajos }}</div>
+                    <div class="indicator-label">Bajo Stock</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card-indicator">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
+                </div>
+                <div class="col">
+                    <div class="indicator-value">{{ productos_disponibles }}</div>
+                    <div class="indicator-label">Activos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card-indicator">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-calendar3-event text-primary" style="font-size: 2rem;"></i>
+                </div>
+                <div class="col">
+                    <div class="indicator-value">{{ ultimas_ventas|length }}</div>
+                    <div class="indicator-label">Últimas Ventas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card-indicator">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <i class="bi bi-percent text-info" style="font-size: 2rem;"></i>
+                </div>
+                <div class="col">
+                    <div class="indicator-value">100%</div>
+                    <div class="indicator-label">Disponibilidad</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla: Últimos Productos Agregados -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history"></i> Últimos Productos Agregados
+                </h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr class="table-light">
+                            <th><i class="bi bi-tag"></i> Nombre</th>
+                            <th><i class="bi bi-cash-coin"></i> Precio</th>
+                            <th><i class="bi bi-stack"></i> Stock</th>
+                            <th><i class="bi bi-check2-circle"></i> Estado</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in ultimos_productos %}
+                            <tr>
+                                <td class="fw-500">
+                                    <a href="{% url 'inventario:product_detail' producto.pk %}" class="text-decoration-none">
+                                        {{ producto.nombre }}
+                                    </a>
+                                </td>
+                                <td class="text-primary fw-600">$ {{ producto.precio|floatformat:2|default:"0.00" }}</td>
+                                <td>
+                                    <span class="badge bg-light text-dark">{{ producto.cantidad }} unidades</span>
+                                </td>
+                                <td>
+                                    {% if producto.disponible %}
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle"></i> Disponible
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-x-circle"></i> No disponible
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{% url 'inventario:product_detail' producto.pk %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">
+                                    <i class="bi bi-inbox"></i> No hay productos aún.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.fw-500 {
+    font-weight: 500;
+}
+.fw-600 {
+    font-weight: 600;
+}
+</style>
+{% endblock %}
+

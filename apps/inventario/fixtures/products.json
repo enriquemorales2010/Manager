@@ -1,0 +1,262 @@
+[
+  {
+    "model": "inventario.product",
+    "pk": 1,
+    "fields": {
+      "nombre": "PAN",
+      "descripcion": "Pan fresco de panadería, suave y esponjoso.",
+      "precio": "0.80",
+      "cantidad": 45,
+      "disponible": true,
+      "created_at": "2026-06-11T10:00:00Z",
+      "updated_at": "2026-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 2,
+    "fields": {
+      "nombre": "PAN RELLENO",
+      "descripcion": "Pan relleno de queso, jamón o dulce.",
+      "precio": "1.20",
+      "cantidad": 35,
+      "disponible": true,
+      "created_at": "2026-06-11T10:05:00Z",
+      "updated_at": "2026-06-11T10:05:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 3,
+    "fields": {
+      "nombre": "PINITAS",
+      "descripcion": "Roscas de pan con forma de piña, doradas y crujientes.",
+      "precio": "0.95",
+      "cantidad": 28,
+      "disponible": true,
+      "created_at": "2026-06-11T10:10:00Z",
+      "updated_at": "2026-06-11T10:10:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 4,
+    "fields": {
+      "nombre": "Bolita",
+      "descripcion": "Pan redondo tierno para desayuno.",
+      "precio": "0.60",
+      "cantidad": 50,
+      "disponible": true,
+      "created_at": "2026-06-11T10:15:00Z",
+      "updated_at": "2026-06-11T10:15:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 5,
+    "fields": {
+      "nombre": "Dulce",
+      "descripcion": "Pan dulce tradicional con cobertura de azúcar.",
+      "precio": "1.50",
+      "cantidad": 22,
+      "disponible": true,
+      "created_at": "2026-06-11T10:20:00Z",
+      "updated_at": "2026-06-11T10:20:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 6,
+    "fields": {
+      "nombre": "Tequeños",
+      "descripcion": "Tequeños rellenos de queso fresco, crujientes.",
+      "precio": "2.00",
+      "cantidad": 18,
+      "disponible": true,
+      "created_at": "2026-06-11T10:25:00Z",
+      "updated_at": "2026-06-11T10:25:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 7,
+    "fields": {
+      "nombre": "PANETON",
+      "descripcion": "Panettone tradicional con pasas y frutos secos.",
+      "precio": "8.50",
+      "cantidad": 12,
+      "disponible": true,
+      "created_at": "2026-06-11T10:30:00Z",
+      "updated_at": "2026-06-11T10:30:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 8,
+    "fields": {
+      "nombre": "Torta",
+      "descripcion": "Torta de vainilla o chocolate, decorada.",
+      "precio": "15.00",
+      "cantidad": 5,
+      "disponible": true,
+      "created_at": "2026-06-11T10:35:00Z",
+      "updated_at": "2026-06-11T10:35:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 9,
+    "fields": {
+      "nombre": "galletas",
+      "descripcion": "Galletas crujientes de mantequilla o chocolate.",
+      "precio": "1.75",
+      "cantidad": 40,
+      "disponible": true,
+      "created_at": "2026-06-11T10:40:00Z",
+      "updated_at": "2026-06-11T10:40:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 10,
+    "fields": {
+      "nombre": "CANOLOS",
+      "descripcion": "Canolos rellenos de crema o dulce de leche.",
+      "precio": "2.50",
+      "cantidad": 15,
+      "disponible": true,
+      "created_at": "2026-06-11T10:45:00Z",
+      "updated_at": "2026-06-11T10:45:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 11,
+    "fields": {
+      "nombre": "Arepas",
+      "descripcion": "Arepas de maíz blanco recién hechas.",
+      "precio": "1.00",
+      "cantidad": 32,
+      "disponible": true,
+      "created_at": "2026-06-11T10:50:00Z",
+      "updated_at": "2026-06-11T10:50:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 12,
+    "fields": {
+      "nombre": "Bebida",
+      "descripcion": "Refrescos y bebidas variadas.",
+      "precio": "2.00",
+      "cantidad": 60,
+      "disponible": true,
+      "created_at": "2026-06-11T10:55:00Z",
+      "updated_at": "2026-06-11T10:55:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 13,
+    "fields": {
+      "nombre": "Maltas",
+      "descripcion": "Bebida de malta fría o caliente.",
+      "precio": "3.50",
+      "cantidad": 25,
+      "disponible": true,
+      "created_at": "2026-06-11T11:00:00Z",
+      "updated_at": "2026-06-11T11:00:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 14,
+    "fields": {
+      "nombre": "Café",
+      "descripcion": "Café expreso o americano recién hecho.",
+      "precio": "1.50",
+      "cantidad": 70,
+      "disponible": true,
+      "created_at": "2026-06-11T11:05:00Z",
+      "updated_at": "2026-06-11T11:05:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 15,
+    "fields": {
+      "nombre": "Chocolate",
+      "descripcion": "Bebida de chocolate caliente o fría.",
+      "precio": "2.50",
+      "cantidad": 38,
+      "disponible": true,
+      "created_at": "2026-06-11T11:10:00Z",
+      "updated_at": "2026-06-11T11:10:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 16,
+    "fields": {
+      "nombre": "QUESO",
+      "descripcion": "Queso fresco de buena calidad.",
+      "precio": "5.00",
+      "cantidad": 20,
+      "disponible": true,
+      "created_at": "2026-06-11T11:15:00Z",
+      "updated_at": "2026-06-11T11:15:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 17,
+    "fields": {
+      "nombre": "JAMON",
+      "descripcion": "Jamón rebanado para emparedados.",
+      "precio": "6.50",
+      "cantidad": 16,
+      "disponible": true,
+      "created_at": "2026-06-11T11:20:00Z",
+      "updated_at": "2026-06-11T11:20:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 18,
+    "fields": {
+      "nombre": "HUEVOS",
+      "descripcion": "Huevos frescos de granja.",
+      "precio": "3.00",
+      "cantidad": 55,
+      "disponible": true,
+      "created_at": "2026-06-11T11:25:00Z",
+      "updated_at": "2026-06-11T11:25:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 19,
+    "fields": {
+      "nombre": "MANI",
+      "descripcion": "Maní tostado y salado.",
+      "precio": "4.00",
+      "cantidad": 30,
+      "disponible": true,
+      "created_at": "2026-06-11T11:30:00Z",
+      "updated_at": "2026-06-11T11:30:00Z"
+    }
+  },
+  {
+    "model": "inventario.product",
+    "pk": 20,
+    "fields": {
+      "nombre": "almendras",
+      "descripcion": "Almendras tostadas y saladas.",
+      "precio": "5.50",
+      "cantidad": 24,
+      "disponible": true,
+      "created_at": "2026-06-11T11:35:00Z",
+      "updated_at": "2026-06-11T11:35:00Z"
+    }
+  }
+]

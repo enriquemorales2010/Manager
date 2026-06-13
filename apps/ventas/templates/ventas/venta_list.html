@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h2">Registro de ventas</h1>
+            <p class="text-muted">Historial de ventas diarias.</p>
+        </div>
+        <a class="btn btn-primary" href="{% url 'ventas:venta_create' %}">Nueva venta</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Items</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venta in ventas %}
+                    <tr>
+                        <td>{{ venta.fecha }}</td>
+                        <td>$ {{ venta.total|floatformat:2 }}</td>
+                        <td>{{ venta.detalleventa_set.count }} productos</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'ventas:venta_detail' venta.pk %}">Ver</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'ventas:venta_delete' venta.pk %}">Eliminar</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4">No hay ventas registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

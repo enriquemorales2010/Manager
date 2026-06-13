@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Inventario{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h2">Inventario de productos</h1>
+            <p class="text-muted">Lista de productos registrados en el sistema.</p>
+        </div>
+        <a class="btn btn-primary" href="{% url 'inventario:product_create' %}">Crear producto</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Disponible</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <td><a class="text-decoration-none" href="{% url 'inventario:product_detail' producto.pk %}">{{ producto.nombre }}</a></td>
+                        <td>$ {{ producto.precio|floatformat:2|default:"0,00" }}</td>
+                        <td>{{ producto.cantidad }}</td>
+                        <td>{% if producto.disponible %}<span class="badge bg-success">Sí</span>{% else %}<span class="badge bg-secondary">No</span>{% endif %}</td>
+                        <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'inventario:product_update' producto.pk %}">Editar</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4">No hay productos disponibles.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

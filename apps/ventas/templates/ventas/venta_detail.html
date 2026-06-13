@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Venta {{ venta.pk }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h2">Venta del {{ venta.fecha }}</h1>
+            <p class="text-muted">Detalles de la venta registrada.</p>
+        </div>
+        <div>
+            <a class="btn btn-outline-danger" href="{% url 'ventas:venta_delete' venta.pk %}">Eliminar venta</a>
+            <a class="btn btn-secondary" href="{% url 'ventas:venta_list' %}">Volver</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0">Productos vendidos</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unit.</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detalle in detalles %}
+                            <tr>
+                                <td>{{ detalle.producto.nombre }}</td>
+                                <td>{{ detalle.cantidad }}</td>
+                                <td>$ {{ detalle.precio_unitario|floatformat:2 }}</td>
+                                <td>$ {{ detalle.subtotal|floatformat:2 }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4">No hay productos en esta venta.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Resumen</h5>
+                <dl class="row">
+                    <dt class="col-sm-6">Productos:</dt>
+                    <dd class="col-sm-6">{{ detalles.count }}</dd>
+
+                    <dt class="col-sm-6">Total items:</dt>
+                    <dd class="col-sm-6">{{ detalles|length }}</dd>
+
+                    <dt class="col-sm-6">Total venta:</dt>
+                    <dd class="col-sm-6 fw-bold">$ {{ venta.total|floatformat:2 }}</dd>
+
+                    <dt class="col-sm-6">Registrado:</dt>
+                    <dd class="col-sm-6">{{ venta.created_at }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
