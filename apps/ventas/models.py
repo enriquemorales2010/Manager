@@ -50,3 +50,11 @@ class DetalleVenta(models.Model):
         self.venta.calcular_total()
         self.producto.cantidad -= self.cantidad
         self.producto.save()
+
+
+def crear_factura(self):
+    self.cantidad = 100
+    self.precio_unitario = 25
+    self.total = self.calcular_total()
+    return True
+
