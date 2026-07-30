@@ -16,6 +16,13 @@ CSRF_TRUSTED_ORIGINS = [
     if origin.strip()
 ]
 
+# Render asigna el dominio en runtime y lo expone en esta variable:
+# https://render.com/docs/deploy-django#allowed-hosts
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{RENDER_EXTERNAL_HOSTNAME}")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
